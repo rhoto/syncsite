@@ -9,8 +9,7 @@
          window.onload = function() {
  
             sock = new WebSocket(wsuri);
-            document.getElementById('message').value = document.URL;
- 
+
             sock.onopen = function() {
                console.log("connected to " + wsuri);
             }
@@ -21,6 +20,9 @@
  
             sock.onmessage = function(e) {
                console.log("message received: " + e.data);
+               var JSONobject = JSON.parse(e.data);
+               console.log(JSON.stringify(JSONobject));
+               loadVideo(JSONobject.url);
             }
          };
  
@@ -33,19 +35,23 @@
    <body>
       <div id="player">
          <script type="text/javascript">
-         var url = 'ZDGud3o0Nrc';
+         var initialUrl = 'ZDGud3o0Nrc';
 
-         var params = { allowScriptAccess: "always" };
-         var atts = { id: "player"};
-         swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player", "player", "425", "336", "8", null, null, params, atts);
+         function loadVideo(url) {
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "player"};
+            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player", "player", "425", "336", "8", null, null, params, atts);
+         }
+
+         loadVideo(initialUrl);
          </script>
       </div>
       <form>
          <p>
             Message:
-            <input id="message" type="text" value="Hello, world!">
+            <input id="message" type="text" value="Fln69C4_Ld0">
          </p>
       </form>
-      <button onclick='send();'>Send Message</button>
+      <button onclick='send();'>Load Video</button>
    </body>
 </html>

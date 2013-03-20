@@ -9,7 +9,7 @@ from autobahn.websocket import WebSocketServerFactory, WebSocketServerProtocol, 
 class SyncServerProtocol(WebSocketServerProtocol):
 
 	def onMessage(self, msg, binary):
-		msg = json.dumps(msg.split(' '))
+		msg = json.dumps({'url': msg})
 		print "sending echo:", msg
 		self.sendMessage(msg, False)
 
