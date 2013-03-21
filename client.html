@@ -34,7 +34,7 @@
                   loadVideo(video_id);
                }
                else if (JSONobject.status == "update") {
-                  var video = document.getElementById('player');
+                  var video = document.getElementById('ytplayer');
                   if (JSONobject.video_id != video_id) {
                      loadVideo(video_id);
                   }
@@ -53,7 +53,7 @@
 
          function sync() {
             var time = document.getElementById('synctime').value
-            var video = document.getElementById('player');
+            var video = document.getElementById('ytplayer');
             video.seekTo(time, true);
          }
       </script>
@@ -66,7 +66,7 @@
          function loadVideo(url) {
             var params = { allowScriptAccess: "always" };
             var atts = { id: "player"};
-            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "player", "512", "400", "8", null, null, params, atts);
+            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "ytplayer", "512", "400", "8", null, null, params, atts);
          }
 
          loadVideo(initialUrl);
