@@ -8,7 +8,7 @@ from autobahn.websocket import WebSocketServerFactory, WebSocketServerProtocol, 
 
 from gdata.youtube import service
 
-USERNAME = 'sinktubrtv'
+USERNAME = 'sinktubrtv@gmail.com'
 PASSWORD = 'notasecret'
 
 class SyncServerProtocol(WebSocketServerProtocol):
