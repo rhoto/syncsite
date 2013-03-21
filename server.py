@@ -74,7 +74,7 @@ class VideoHandler:
 
 	def tick(self):
 		self.ticks += 1
-		if self.ticks > self.currentVideoDuration:
+		#if self.ticks > self.currentVideoDuration:
 			# next
 
 
