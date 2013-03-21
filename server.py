@@ -56,7 +56,10 @@ class SyncServerFactory(WebSocketServerFactory):
 class VideoHandler:
 	def __init__(self):
 		self.client = service.YouTubeService()
-		self.client.ClientLogin(USERNAME, PASSWORD)
+		self.client.email = USERNAME
+		self.client.password = PASSWORD
+		self.client.source = 'sinktub'
+		self.client.ProgrammaticLogin()
 
 	def getVideoLength(self, video_id):
 		print "Getting video information for " + video_id + "..."
