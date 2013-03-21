@@ -17,6 +17,7 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
+		self.vid.getVideoLength(msg)
 		msg = json.dumps({'url': msg})
 		print "sending echo:", msg
 		self.factory.broadcast(msg)
@@ -48,7 +49,6 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def broadcast(self, msg):
 		print "broadcasting message '%s' to all clients..." % msg
-		self.vid.getVideoLength(msg)
 		for c in self.clients:
 			c.sendMessage(msg)
 			print "message sent to " + c.peerstr
