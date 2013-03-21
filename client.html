@@ -7,7 +7,7 @@
 
          WEB_SOCKET_SWF_LOCATION = "http://otis.scumba.gs/web_socket/web_socket.js";
          WEB_SOCKET_DEBUG = true;
-         
+
          var sock = null;
          var wsuri = "ws://scumba.gs:64100";
  
@@ -27,7 +27,9 @@
                console.log("message received: " + e.data);
                var JSONobject = JSON.parse(e.data);
                console.log(JSON.stringify(JSONobject));
-               loadVideo(JSONobject.url);
+               if (JSONobject.status == "setVideo") {
+                  loadVideo(JSONobject.video_id);
+               }
             }
          };
  
@@ -45,7 +47,7 @@
          function loadVideo(url) {
             var params = { allowScriptAccess: "always" };
             var atts = { id: "player"};
-            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player", "player", "425", "336", "8", null, null, params, atts);
+            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "player", "640", "480", "8", null, null, params, atts);
          }
 
          loadVideo(initialUrl);

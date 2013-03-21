@@ -1,6 +1,8 @@
 import sys
 import json
 
+from time import time
+
 from twisted.internet import reactor
 from twisted.python import log
 
@@ -18,7 +20,8 @@ class SyncServerProtocol(WebSocketServerProtocol):
 
 	def onMessage(self, msg, binary):
 		factory.vid.getVideoLength(msg)
-		msg = json.dumps({'url': msg})
+		jsonMsg = {'status':'setVideo', 'video_id':msg}
+		msg = json.dumps(jsonMsg)
 		print "sending echo:", msg
 		self.factory.broadcast(msg)
 
@@ -35,6 +38,7 @@ class SyncServerFactory(WebSocketServerFactory):
 		self.tick()
 
 	def tick(self):
+		self.vid.tick()
 		reactor.callLater(1, self.tick)
 
 	def register(self, client):
@@ -61,12 +65,25 @@ class VideoHandler:
 		self.client.source = 'sinktub'
 		self.client.ProgrammaticLogin()
 
+		self.setCurrentVideo(video_id='Fln69C4_Ld0')
+
+	def setCurrentVideo(self, video_id):
+		self.currentVideoID = video_id
+		self.currentVideoDuration = self.getVideoLength(video_id)
+		self.ticks = 0
+
+	def tick(self):
+		self.ticks += 1
+		if self.ticks > self.currentVideoDuration:
+			# next
+
+
 	def getVideoLength(self, video_id):
 		print "Getting video information for " + video_id + "..."
 		videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
 		print videoEntry.media.title.text
 		print videoEntry.media.duration.seconds
-		#return videoEntry.title.text
+		return videoEntry.title.duration.seconds
 
 
 if __name__ == '__main__':
