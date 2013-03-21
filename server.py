@@ -19,7 +19,6 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
-		factory.vid.getVideoLength(msg)
 		jsonMsg = {'status':'setVideo', 'video_id':msg}
 		msg = json.dumps(jsonMsg)
 		print "sending echo:", msg
@@ -80,7 +79,7 @@ class VideoHandler:
 	def tick(self):
 		self.ticks += 1
 		print "Tick %d" % self.ticks
-		print self.currentVideoDuration
+		#print self.currentVideoDuration
 		if self.ticks > int(self.currentVideoDuration):
 			# need queue code, set next video to maize
 			self.setCurrentVideo(video_id='ZDGud3o0Nrc')
