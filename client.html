@@ -12,7 +12,6 @@
          var sock = null;
          var wsuri = "ws://scumba.gs:64100";
 
-         var player;
          var video_id;
  
          window.onload = function() {
@@ -61,11 +60,11 @@
          }
 
          function loadVideo(url) {
-            player = new YT.player('ytplayer', {
+            var player;
+            player = new YT.Player('ytplayer', {
                height: '390',
                width: '640',
-               videoId: url,
-               events: {}
+               videoId: url
             });
          }
       </script>
