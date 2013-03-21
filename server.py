@@ -56,11 +56,11 @@ class SyncServerFactory(WebSocketServerFactory):
 class VideoHandler:
 	def __init__(self):
 		self.client = service.YouTubeService()
-		client.ClientLogin(USERNAME, PASSWORD)
+		self.client.ClientLogin(USERNAME, PASSWORD)
 
 	def getVideoLength(self, video_id):
 		print "Getting video information for " + video_id + "..."
-		videoEntry = client.GetYouTubeVideoEntry(video_id=video_id)
+		videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
 		print "Returned " + videoEntry
 		print videoEntry.title
 		return videoEntry.title
