@@ -83,7 +83,7 @@ class VideoHandler:
 		videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
 		print videoEntry.media.title.text
 		print videoEntry.media.duration.seconds
-		return videoEntry.title.duration.seconds
+		return videoEntry.media.duration.seconds
 
 
 if __name__ == '__main__':
