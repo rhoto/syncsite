@@ -38,7 +38,8 @@
             sock.send(msg);
          };
 
-         function sync(time) {
+         function sync() {
+            var time = document.getElementById('synctime').value
             var video = document.getElementById('player');
             video.seekTo(time, true);
          }
@@ -69,7 +70,7 @@
             <input id="synctime" type="text" value="5">
          </p>
       </form>
-      <button onclick='send();'>Load Video</button><button onclick='sync(document.getElementById('synctime').value)'>Set time</button>
+      <button onclick='send();'>Load Video</button><button onclick='sync();'>Set time</button>
       <p>Other videos:
          <br>1heiMwhA7FY
          <br>cV7Mf4BAuqE
