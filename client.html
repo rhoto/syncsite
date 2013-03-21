@@ -57,21 +57,16 @@
             var video = document.getElementById('ytplayer');
             video.seekTo(time, true);
          }
+
+         function loadVideo(url) {
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "ytplayer"};
+            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=ytplayer&autoplay=1", "ytplayer", "512", "400", "8", null, null, params, atts);
+         }
       </script>
    </head>
    <body>
       <div id="ytplayer">
-         <script type="text/javascript">
-         var initialUrl = 'ZDGud3o0Nrc';
-
-         function loadVideo(url) {
-            var params = { allowScriptAccess: "always" };
-            var atts = { id: "player"};
-            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "ytplayer", "512", "400", "8", null, null, params, atts);
-         }
-
-         loadVideo(initialUrl);
-         </script>
       </div>
       <iframe src="http://qchat2.rizon.net/?randomnick=1&channels=sinktub" width="400" height="600"></iframe>
       <form>
