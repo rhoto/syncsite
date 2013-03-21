@@ -34,7 +34,7 @@ class SyncServerFactory(WebSocketServerFactory):
 		self.tick()
 
 	def tick(self):
-		reactor.callLater(1, tick())
+		reactor.callLater(1, self.tick())
 
 	def register(self, client):
 		if not client in self.clients:
