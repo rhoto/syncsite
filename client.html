@@ -10,6 +10,8 @@
 
          var sock = null;
          var wsuri = "ws://scumba.gs:64100";
+
+         var video_id;
  
          window.onload = function() {
  
@@ -28,7 +30,18 @@
                var JSONobject = JSON.parse(e.data);
                console.log(JSON.stringify(JSONobject));
                if (JSONobject.status == "setVideo") {
-                  loadVideo(JSONobject.video_id);
+                  video_id = JSONobject.video_id;
+                  loadVideo(video_id);
+               }
+               else if (JSONobject.status == "update") {
+                  var video = document.getElementById('player');
+                  if (JSONobject.video_id != video_id) {
+                     loadVideo(video_id);
+                  }
+                  var currentTime = video.getCurrentTime();
+                  if (JSONobject.time > video.getCurrentTime() + 5 || JSONobject.time < video.getCurrentTime() - 5) {
+                     video.seekTo(JSONobject.time, true);
+                  }
                }
             }
          };

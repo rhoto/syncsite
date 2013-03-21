@@ -39,6 +39,7 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def tick(self):
 		self.vid.tick()
+		self.broadcast(self.vid.getCurrentStatus())
 		reactor.callLater(1, self.tick)
 
 	def register(self, client):
@@ -72,10 +73,17 @@ class VideoHandler:
 		self.currentVideoDuration = self.getVideoLength(video_id)
 		self.ticks = 0
 
+	def getCurrentStatus(self):
+		status = {'status':'update', 'video_id':self.currentVideoID,'time':self.ticks}
+		return status
+
 	def tick(self):
 		self.ticks += 1
-		#if self.ticks > self.currentVideoDuration:
-			# next
+		print "Tick %d" % self.ticks
+		print self.currentVideoDuration
+		if self.ticks > int(self.currentVideoDuration):
+			# need queue code, set next video to maize
+			self.setCurrentVideo(video_id='ZDGud3o0Nrc')
 
 
 	def getVideoLength(self, video_id):
