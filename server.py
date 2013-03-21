@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 	log.startLogging(sys.stdout)
 
-	factory = SyncServerFactory("ws://localhost:85381", debug = False, debugCodePaths = False)
+	factory = SyncServerFactory("ws://localhost:64100", debug = False, debugCodePaths = False)
 	factory.protocol = SyncServerProtocol
 	listenWS(factory)
 
