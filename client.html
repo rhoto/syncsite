@@ -39,7 +39,7 @@
                      loadVideo(video_id);
                   }
                   var currentTime = video.getCurrentTime();
-                  if (JSONobject.time > video.getCurrentTime() + 5 || JSONobject.time < video.getCurrentTime() - 5) {
+                  if (JSONobject.time > currentTime + 5 || JSONobject.time < currentTime - 5) {
                      video.seekTo(JSONobject.time, true);
                   }
                }
