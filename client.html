@@ -37,6 +37,11 @@
             var msg = document.getElementById('message').value;
             sock.send(msg);
          };
+
+         function sync(time) {
+            var video = document.getElementById('player');
+            video.seekTo(time, true);
+         }
       </script>
    </head>
    <body>
@@ -47,20 +52,24 @@
          function loadVideo(url) {
             var params = { allowScriptAccess: "always" };
             var atts = { id: "player"};
-            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "player", "640", "480", "8", null, null, params, atts);
+            swfobject.embedSWF("http://youtube.com/v/" + url + "&enablejsapi=1&playerapiid=player&autoplay=1", "player", "512", "400", "8", null, null, params, atts);
          }
 
          loadVideo(initialUrl);
          </script>
       </div>
-      <iframe src="http://qchat2.rizon.net/?randomnick=1&channels=sinktub" width="647" height="400"></iframe>
+      <iframe src="http://qchat2.rizon.net/?randomnick=1&channels=sinktub" width="400" height="600"></iframe>
       <form>
          <p>
-            Message:
+            Video ID:
             <input id="message" type="text" value="Fln69C4_Ld0">
          </p>
+         <p>
+            Time:
+            <input id="synctime" type="text" value="5">
+         </p>
       </form>
-      <button onclick='send();'>Load Video</button>
+      <button onclick='send();'>Load Video</button><button onclick='sync(document.getElementById('synctime').value'>Set time</button>
       <p>Other videos:
          <br>1heiMwhA7FY
          <br>cV7Mf4BAuqE
