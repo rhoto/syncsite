@@ -39,7 +39,7 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def tick(self):
 		self.vid.tick()
-		self.broadcast(self.vid.getCurrentStatus())
+		self.broadcast(json.dumps(self.vid.getCurrentStatus()))
 		reactor.callLater(1, self.tick)
 
 	def register(self, client):
