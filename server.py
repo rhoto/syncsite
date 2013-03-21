@@ -17,7 +17,7 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
-		self.vid.getVideoLength(msg)
+		factory.vid.getVideoLength(msg)
 		msg = json.dumps({'url': msg})
 		print "sending echo:", msg
 		self.factory.broadcast(msg)
