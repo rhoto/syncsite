@@ -61,9 +61,9 @@ class VideoHandler:
 	def getVideoLength(self, video_id):
 		print "Getting video information for " + video_id + "..."
 		videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
-		print "Returned " + videoEntry
-		print videoEntry.title
-		return videoEntry.title
+		print videoEntry.media.title.text
+		print videoEntry.media.duration.seconds
+		#return videoEntry.title.text
 
 
 if __name__ == '__main__':
