@@ -29,7 +29,7 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def __init__(self, url, debug = False, debugCodePaths = False):
 		WebSocketServerFactory.__init__(self, url, debug = debug, debugCodePaths = debugCodePaths)
-		vid = VideoHandler()
+		self.vid = VideoHandler()
 		self.clients = []
 		self.tick()
 
@@ -48,7 +48,7 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def broadcast(self, msg):
 		print "broadcasting message '%s' to all clients..." % msg
-		vid.getVideoLength(msg)
+		self.vid.getVideoLength(msg)
 		for c in self.clients:
 			c.sendMessage(msg)
 			print "message sent to " + c.peerstr
