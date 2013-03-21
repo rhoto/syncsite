@@ -35,6 +35,7 @@
                }
                else if (JSONobject.status == "update") {
                   var video = document.getElementById('ytplayer');
+                  console.log(video);
                   if (JSONobject.video_id != video_id) {
                      loadVideo(video_id);
                   }
@@ -59,7 +60,7 @@
       </script>
    </head>
    <body>
-      <div id="player">
+      <div id="ytplayer">
          <script type="text/javascript">
          var initialUrl = 'ZDGud3o0Nrc';
 
