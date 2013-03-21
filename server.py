@@ -6,6 +6,11 @@ from twisted.python import log
 
 from autobahn.websocket import WebSocketServerFactory, WebSocketServerProtocol, listenWS
 
+from gdata.youtube import service
+
+USERNAME = 'sinktubrtv'
+PASSWORD = 'notasecret'
+
 class SyncServerProtocol(WebSocketServerProtocol):
 
 	def onOpen(self):
@@ -24,7 +29,12 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def __init__(self, url, debug = False, debugCodePaths = False):
 		WebSocketServerFactory.__init__(self, url, debug = debug, debugCodePaths = debugCodePaths)
+		vid = VideoHandler()
 		self.clients = []
+		self.tick()
+
+	def tick(self):
+		callLater(1, tick())
 
 	def register(self, client):
 		if not client in self.clients:
@@ -38,13 +48,29 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def broadcast(self, msg):
 		print "broadcasting message '%s' to all clients..." % msg
+		vid.getVideoLength(msg)
 		for c in self.clients:
 			c.sendMessage(msg)
 			print "message sent to " + c.peerstr
 
+class VideoHandler:
+	def __init__(self):
+		self.client = service.YouTubeService()
+		client.ClientLogin(USERNAME, PASSWORD)
+
+	def getVideoLength(self, video_id):
+		print "Getting video information for " + video_id + "..."
+		videoEntry = client.GetYouTubeVideoEntry(video_id=video_id)
+		print "Returned " + videoEntry
+		print videoEntry.title
+		return videoEntry.title
+
+
 if __name__ == '__main__':
 
 	log.startLogging(sys.stdout)
+
+
 
 	factory = SyncServerFactory("ws://localhost:64100", debug = False, debugCodePaths = False)
 	factory.protocol = SyncServerProtocol
