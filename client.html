@@ -48,7 +48,11 @@
          };
  
          function send() {
-            var msg = document.getElementById('message').value;
+            var url = document.getElementById('message').value;
+            var msg = {
+               "status": "queueVideo",
+               "video_id": url
+            };
             sock.send(msg);
          }
 
@@ -90,10 +94,12 @@
       <div id="ytplayer">
       </div>
       <iframe id="chat" style="border: 0px;" src="http://widget00.mibbit.com/?settings=6a80ff5f97e3c8560157500e76edbcc6&server=irc.rizon.net&channel=%23sinktub&noServerMotd=true&autoConnect=true"></iframe>
+
+      <input id="message" type="text" value="Fln69C4_Ld0">
       <!--<form>
          <p>
             Video ID:
-            <input id="message" type="text" value="Fln69C4_Ld0">
+            
          </p>
          <p>
             Time:

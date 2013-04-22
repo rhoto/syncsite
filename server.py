@@ -19,10 +19,10 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
-		jsonMsg = {'status':'setVideo', 'video_id':msg}
-		msg = json.dumps(jsonMsg)
-		print "sending echo:", msg
-		self.factory.broadcast(msg)
+		msg = json.loads(msg)
+		print "message recieved:", json.dumps(msg)
+		if msg['status'] == 'queueVideo':
+			self.vid.setCurrentVideo(video_id=msg['video_id'])
 
 	def connectionLost(self, reason):
 		WebSocketServerProtocol.connectionLost(self,reason)
