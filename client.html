@@ -34,6 +34,8 @@
                if (eventData.status == "update") {
                   if (player == null) {
                      loadVideo(eventData.video_id);
+                  } else if (video_id != eventData.video_id) {
+                     changeVideo(eventData.video_id, eventData.time);
                   }
                   var time = player.getCurrentTime();
                   if (eventData.time > time + 3 || eventData.time < time - 3 ) {
@@ -56,6 +58,10 @@
 
          function sync(time) {
             player.seekTo(time, true);
+         }
+
+         function changeVideo(url, time) {
+            player.loadVideoById(url, time);
          }
 
          function loadVideo(url) {
