@@ -74,7 +74,7 @@ class VideoHandler:
 		self.setCurrentVideo(video_id='Fln69C4_Ld0')
 
 	def queueVideo(self, video_id):
-		videoQueue.append(video_id)
+		self.videoQueue.append(video_id)
 
 	def setCurrentVideo(self, video_id):
 		vidDuration = self.getVideoLength(video_id)
@@ -94,7 +94,7 @@ class VideoHandler:
 		if self.ticks > int(self.currentVideoDuration):
 			# need queue code, set next video to maize
 			if len(self.videoQueue) > 0:
-				self.setCurrentVideo(video_id=videoQueue.pop(0))
+				self.setCurrentVideo(video_id=self.videoQueue.pop(0))
 			else:
 				self.setCurrentVideo(video_id='oEAwP0u15ZA')
 
