@@ -86,7 +86,7 @@ class VideoHandler:
 			self.ticks = 0
 
 	def getCurrentStatus(self):
-		status = {'status':'update', 'video_id':self.currentVideoID,'time':self.ticks, 'queue':videoQueue}
+		status = {'status':'update', 'video_id':self.currentVideoID,'time':self.ticks, 'queue':self.videoQueue}
 		return status
 
 	def tick(self):
