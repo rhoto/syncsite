@@ -108,7 +108,7 @@ class VideoHandler:
 			return 0
 		print videoEntry.media.title.text
 		print videoEntry.media.duration.seconds
-		rv = ["title": videoEntry.media.title.text, "duration": videoEntry.media.duration.seconds]
+		rv = {"title": videoEntry.media.title.text, "duration": videoEntry.media.duration.seconds}
 		return rv
 
 
