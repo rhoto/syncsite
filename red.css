@@ -1,0 +1,55 @@
+* { margin: 0; padding: 0; }
+
+body, html {
+	background: #000;
+	font-family: Helvetica, Arial, sans-serif;
+	text-align: center;
+	font-size: 9pt;
+	color: #d00000;
+}
+
+#header {
+	background: #d00000 url('images/bg_red.png') repeat-x  0 0;
+	width: 100%;
+	height: 35px;
+	text-align: center;
+}
+
+h1 {
+	background: url('images/logo_red.png') no-repeat center center;
+	width: 144px;
+	height: 35px;
+	margin: 0 auto;
+	text-indent: -9999px;
+}
+
+#news-ticker {
+	background: #232323;
+	width: 100%;
+	height: 25px;
+	color: #6C6C6C;
+	text-align: center;
+	line-height: 2em;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+#news-ticker a {
+	color: #A8A8A8;
+	text-decoration: none;
+}
+
+#news-ticker a:hover {
+	color: #BCBCBC;
+}
+#stream {
+	width: 50%;
+	height: 530px;
+	float: left;
+}
+
+#chat {
+	width: 49%;
+	height: 530px;
+	float: right;
+}
