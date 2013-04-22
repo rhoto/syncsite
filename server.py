@@ -19,6 +19,7 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
+		print "message recieved:", msg
 		msg = json.loads(msg)
 		print "message recieved:", json.dumps(msg)
 		if msg['status'] == 'queueVideo':
