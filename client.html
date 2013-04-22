@@ -36,10 +36,11 @@
                      loadVideo(eventData.video_id);
                   } else if (video_id != eventData.video_id) {
                      changeVideo(eventData.video_id, eventData.time);
-                  }
-                  var time = player.getCurrentTime();
-                  if (eventData.time > time + 3 || eventData.time < time - 3 ) {
-                     sync(eventData.time);
+                  } else {
+                     var time = player.getCurrentTime();
+                     if (eventData.time > time + 3 || eventData.time < time - 3 ) {
+                        sync(eventData.time);
+                     }
                   }
                }
             };
@@ -62,9 +63,11 @@
 
          function changeVideo(url, time) {
             player.loadVideoById(url, time);
+            console.log("changeVideo()");
          }
 
          function loadVideo(url) {
+            console.log("loadVideo()");
             video_id = url;
             player = new YT.Player('ytplayer', {
                height: '390',
