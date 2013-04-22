@@ -69,9 +69,11 @@ class VideoHandler:
 		self.setCurrentVideo(video_id='Fln69C4_Ld0')
 
 	def setCurrentVideo(self, video_id):
-		self.currentVideoID = video_id
-		self.currentVideoDuration = self.getVideoLength(video_id)
-		self.ticks = 0
+		vidDuration = self.getVideoLength(video_id)
+		if (vidDuration > 0):
+			self.currentVideoID = video_id
+			self.currentVideoDuration = vidDuration
+			self.ticks = 0
 
 	def getCurrentStatus(self):
 		status = {'status':'update', 'video_id':self.currentVideoID,'time':self.ticks}
@@ -91,7 +93,11 @@ class VideoHandler:
 
 	def getVideoLength(self, video_id):
 		print "Getting video information for " + video_id + "..."
-		videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
+		try:
+			videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
+		except:
+			print "Bad video URL"
+			return 0
 		print videoEntry.media.title.text
 		print videoEntry.media.duration.seconds
 		return videoEntry.media.duration.seconds
