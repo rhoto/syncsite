@@ -82,7 +82,10 @@ class VideoHandler:
 		#print self.currentVideoDuration
 		if self.ticks > int(self.currentVideoDuration):
 			# need queue code, set next video to maize
-			self.setCurrentVideo(video_id='ZDGud3o0Nrc')
+			if self.currentVideoID == 'oEAwP0u15ZA':
+				self.setCurrentVideo(video_id='ZDGud3o0Nrc')
+			else:
+				self.setCurrentVideo(video_id='oEAwP0u15ZA')
 
 
 	def getVideoLength(self, video_id):
