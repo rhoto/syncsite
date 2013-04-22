@@ -12,7 +12,7 @@
          var sock = null;
          var wsuri = "ws://scumba.gs:64100";
 
-         var video_id;
+         var video_id = null;
          var player;
  
          window.onload = function() {
@@ -32,10 +32,11 @@
                var eventData = JSON.parse(e.data);
                console.log(JSON.stringify(eventData));
                if (eventData.status == "update") {
-                  var time = player.getCurrentTime();
-                  if (video_id != eventData.video_id) {
+                  if (player == null) {
                      loadVideo(eventData.video_id);
-                  } else if (eventData.time > time + 3 || eventData.time < time - 3 ) {
+                  }
+                  var time = player.getCurrentTime();
+                  if (eventData.time > time + 3 || eventData.time < time - 3 ) {
                      sync(eventData.time);
                   }
                }
