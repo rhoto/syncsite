@@ -23,7 +23,7 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		msg = json.loads(msg)
 		print "message recieved:", json.dumps(msg)
 		if msg['status'] == 'queueVideo':
-			self.vid.setCurrentVideo(video_id=msg['video_id'])
+			self.factory.vid.setCurrentVideo(video_id=msg['video_id'])
 
 	def connectionLost(self, reason):
 		WebSocketServerProtocol.connectionLost(self,reason)
