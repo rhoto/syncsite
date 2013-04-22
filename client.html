@@ -13,6 +13,7 @@
          var wsuri = "ws://scumba.gs:64100";
 
          var video_id;
+         var player;
  
          window.onload = function() {
  
@@ -20,57 +21,57 @@
 
             sock.onopen = function() {
                console.log("connected to " + wsuri);
-            }
+            };
  
             sock.onclose = function(e) {
                console.log("connection closed (" + e.code + ")");
-            }
+            };
  
             sock.onmessage = function(e) {
                console.log("message received: " + e.data);
-               var JSONobject = JSON.parse(e.data);
-               console.log(JSON.stringify(JSONobject));
-               if (JSONobject.status == "setVideo") {
-                  video_id = JSONobject.video_id;
-                  loadVideo(video_id);
-               }
-               else if (JSONobject.status == "update") {
-                  var video = document.getElementById('ytplayer');
-                  console.log(video);
-                  if (JSONobject.video_id != video_id) {
-                     loadVideo(video_id);
-                  }
-                  var currentTime = video.getCurrentTime();
-                  if (JSONobject.time > currentTime + 5 || JSONobject.time < currentTime - 5) {
-                     video.seekTo(JSONobject.time, true);
+               var eventData = JSON.parse(e.data);
+               console.log(JSON.stringify(eventData));
+               if (eventData.status == "update") {
+                  var time = player.getCurrentTime();
+                  if (video_id != eventData.video_id) {
+                     loadVideo(eventData.video_id);
+                  } else if (eventData.time > time + 3 || eventData.time < time - 3 ) {
+                     sync(eventData.time);
                   }
                }
-            }
+            };
          };
  
          function send() {
             var msg = document.getElementById('message').value;
+            loadVideo(msg);
             sock.send(msg);
-         };
+         }
 
-         function sync() {
+         function setTime() {
             var time = document.getElementById('synctime').value
-            var video = document.getElementById('ytplayer');
-            video.seekTo(time, true);
+            sync(time);
+         }
+
+         function sync(time) {
+            player.seekTo(time, true);
          }
 
          function loadVideo(url) {
-            var player;
+            video_id = url;
             player = new YT.Player('ytplayer', {
                height: '390',
                width: '640',
                videoId: url
+               events: {
+                  'onReady': onPlayerReady
+               }
             });
          }
-      </script>
 
-      <script>
-
+         function onPlayerReady(event) {
+            event.target.playVideo();
+         }
       </script>
    </head>
    <body>
@@ -87,7 +88,7 @@
             <input id="synctime" type="text" value="5">
          </p>
       </form>
-      <button onclick='send();'>Load Video</button><button onclick='sync();'>Set time</button>
+      <button onclick='send();'>Load Video</button><button onclick='setTime();'>Set time</button>
       <p>Other videos:
          <br>1heiMwhA7FY
          <br>cV7Mf4BAuqE
