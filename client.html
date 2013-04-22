@@ -53,7 +53,7 @@
                "status": "queueVideo",
                "video_id": url
             };
-            sock.send(msg);
+            sock.send(JSON.stringify(msg));
          }
 
          function setTime() {
