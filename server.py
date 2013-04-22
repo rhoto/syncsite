@@ -74,7 +74,7 @@ class VideoHandler:
 
 	def queueVideo(self, video_id):
 		vidInfo = self.getVideoInfo(video_id)
-		vidEntry = ["video_id"=video_id, "title"=vidInfo["title"], "duration"=vidinfo["duration"]]
+		vidEntry = ["video_id":video_id, "title":vidInfo["title"], "duration":vidinfo["duration"]]
 		if vidEntry not in self.videoQueue:
 			self.videoQueue.append(vidEntry)
 
