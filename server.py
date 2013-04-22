@@ -23,7 +23,7 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		msg = json.loads(msg)
 		print "message recieved:", json.dumps(msg)
 		if msg['status'] == 'queueVideo':
-			self.factory.vid.setCurrentVideo(video_id=msg['video_id'])
+			self.factory.vid.queueVideo(video_id=msg['video_id'])
 
 	def connectionLost(self, reason):
 		WebSocketServerProtocol.connectionLost(self,reason)
@@ -39,8 +39,11 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def tick(self):
 		self.vid.tick()
-		self.broadcast(json.dumps(self.vid.getCurrentStatus()))
+		self.update()
 		reactor.callLater(1, self.tick)
+
+	def update(self):
+		self.broadcast(json.dumps(self.vid.getCurrentStatus()))
 
 	def register(self, client):
 		if not client in self.clients:
@@ -66,7 +69,12 @@ class VideoHandler:
 		self.client.source = 'sinktub'
 		self.client.ProgrammaticLogin()
 
+		self.videoQueue = []
+
 		self.setCurrentVideo(video_id='Fln69C4_Ld0')
+
+	def queueVideo(self, video_id):
+		videoQueue.append(video_id)
 
 	def setCurrentVideo(self, video_id):
 		vidDuration = self.getVideoLength(video_id)
@@ -85,8 +93,8 @@ class VideoHandler:
 		#print self.currentVideoDuration
 		if self.ticks > int(self.currentVideoDuration):
 			# need queue code, set next video to maize
-			if self.currentVideoID == 'oEAwP0u15ZA':
-				self.setCurrentVideo(video_id='ZDGud3o0Nrc')
+			if len(self.videoQueue) > 0:
+				self.setCurrentVideo(video_id=videoQueue.pop(0))
 			else:
 				self.setCurrentVideo(video_id='oEAwP0u15ZA')
 
