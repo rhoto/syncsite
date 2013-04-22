@@ -19,7 +19,6 @@ class SyncServerProtocol(WebSocketServerProtocol):
 		self.factory.register(self)
 
 	def onMessage(self, msg, binary):
-		print "message recieved:", msg
 		msg = json.loads(msg)
 		print "message recieved:", json.dumps(msg)
 		if msg['status'] == 'queueVideo':
@@ -74,7 +73,10 @@ class VideoHandler:
 		self.setCurrentVideo(video_id='Fln69C4_Ld0')
 
 	def queueVideo(self, video_id):
-		self.videoQueue.append(video_id)
+		vidInfo = self.getVideoInfo(video_id)
+		vidEntry = ["video_id"=video_id, "title"=vidInfo["title"], "duration"=vidinfo["duration"]]
+		if vidEntry not in self.videoQueue:
+			self.videoQueue.append(vidEntry)
 
 	def setCurrentVideo(self, video_id):
 		vidDuration = self.getVideoLength(video_id)
@@ -92,14 +94,12 @@ class VideoHandler:
 		print "Tick %d" % self.ticks
 		#print self.currentVideoDuration
 		if self.ticks > int(self.currentVideoDuration):
-			# need queue code, set next video to maize
 			if len(self.videoQueue) > 0:
-				self.setCurrentVideo(video_id=self.videoQueue.pop(0))
+				self.setCurrentVideo(video_id=self.videoQueue.pop(0)["video_id"])
 			else:
 				self.setCurrentVideo(video_id='ZDGud3o0Nrc')
 
-
-	def getVideoLength(self, video_id):
+	def getVideoInfo(self, video_id):
 		print "Getting video information for " + video_id + "..."
 		try:
 			videoEntry = self.client.GetYouTubeVideoEntry(video_id=video_id)
@@ -108,7 +108,12 @@ class VideoHandler:
 			return 0
 		print videoEntry.media.title.text
 		print videoEntry.media.duration.seconds
-		return videoEntry.media.duration.seconds
+		rv = ["title": videoEntry.media.title.text, "duration": videoEntry.media.duration.seconds]
+		return rv
+
+
+	def getVideoLength(self, video_id):
+		return self.getVideoInfo(video_id=video_id)["duration"]
 
 
 if __name__ == '__main__':
