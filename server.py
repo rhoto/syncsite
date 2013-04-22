@@ -96,7 +96,7 @@ class VideoHandler:
 			if len(self.videoQueue) > 0:
 				self.setCurrentVideo(video_id=self.videoQueue.pop(0))
 			else:
-				self.setCurrentVideo(video_id='oEAwP0u15ZA')
+				self.setCurrentVideo(video_id='ZDGud3o0Nrc')
 
 
 	def getVideoLength(self, video_id):
