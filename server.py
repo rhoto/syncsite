@@ -97,7 +97,7 @@ class VideoHandler:
 			if len(self.videoQueue) > 0:
 				self.setCurrentVideo(video_id=self.videoQueue.pop(0)["video_id"])
 			else:
-				self.setCurrentVideo(video_id='ZDGud3o0Nrc')
+				self.setCurrentVideo(video_id='_Z_Se7eJNiM')
 
 	def getVideoInfo(self, video_id):
 		print "Getting video information for " + video_id + "..."
