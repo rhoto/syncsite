@@ -46,6 +46,7 @@ h1 {
 	width: 50%;
 	height: 530px;
 	float: left;
+	border: none;
 }
 
 #chat {
