@@ -43,7 +43,7 @@ class SyncServerFactory(WebSocketServerFactory):
 
 	def update(self):
 		status = self.vid.getCurrentStatus()
-		status.append("viewerCount": len(self.clients))
+		status.append({"viewerCount": len(self.clients)})
 		self.broadcast(json.dumps(status))
 
 	def register(self, client):
