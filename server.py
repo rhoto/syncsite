@@ -42,7 +42,9 @@ class SyncServerFactory(WebSocketServerFactory):
 		reactor.callLater(1, self.tick)
 
 	def update(self):
-		self.broadcast(json.dumps(self.vid.getCurrentStatus()))
+		status = self.vid.getCurrentStatus()
+		status.append("viewerCount": len(self.clients))
+		self.broadcast(json.dumps(status))
 
 	def register(self, client):
 		if not client in self.clients:
