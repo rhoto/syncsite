@@ -33,6 +33,7 @@
  
             sock.onclose = function(e) {
                console.log("connection closed (" + e.code + ")");
+               $("#playlist").html("Not connected :(");
             };
  
             sock.onmessage = function(e) {
