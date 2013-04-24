@@ -50,6 +50,12 @@
                         sync(eventData.time);
                      }
                   }
+                  if (eventData.queue != []) {
+                     $("playlist").html("");
+                     for (var i = 0; i < eventData.queue.length; i++) {
+                        $("playlist").append(eventData.queue.title + "<br>");
+                     }
+                  }
                }
             };
          };
@@ -104,6 +110,7 @@
 
       <input id="message" type="text" value="Fln69C4_Ld0">
       <button onclick='send();'>Load Video</button>
+      <p><span id="playlist"></span></p>
       <!--<form>
          <p>
             Video ID:
